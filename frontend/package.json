@@ -13,7 +13,9 @@
     "next": "14.2.5",
     "pixi.js": "^7.4.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tunnel-rat": "^0.1.2",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@types/node": "^20",
