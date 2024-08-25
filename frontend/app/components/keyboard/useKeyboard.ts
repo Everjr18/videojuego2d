@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useStore from '../../states/useStore'
+import useStore from '../../store/useStore'
 
 const useKeyboard = () => {
   const {

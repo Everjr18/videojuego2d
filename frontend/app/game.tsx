@@ -1,27 +1,35 @@
 'use client'
-import tunnel from 'tunnel-rat'
-import { useEffect, useMemo, useState } from 'react'
 import { BlurFilter, TextStyle } from 'pixi.js'
 import { Stage, Container, Sprite, Text } from '@pixi/react'
 import { t1, t2 } from './components/rat-tunnel/tunnels'
 import useKeyboard from './components/keyboard/useKeyboard'
 import Hero from './components/sprite/hero'
+import Chicken from './components/sprite/chicken'
+import Parrot from './components/sprite/parrot'
 import useMounted from './hooks/useMounted'
+import useStore from '@/app/store/useStore'
 
 const bunnyUrl = 'https://pixijs.io/pixi-react/img/bunny.png'
 
 export default function Game() {
   const { isMounted } = useMounted()
-
   useKeyboard()
+  const { screenHeight, screenWidth } = useStore()
 
   return (
     <>
       {isMounted && (
         <>
-          <Stage width={800} height={600} options={{ background: 0x1099bb }}>
-            <Sprite image={bunnyUrl} x={500} y={150} />
-            <Sprite image={bunnyUrl} x={400} y={200} />
+          <Stage
+            width={screenWidth}
+            height={screenHeight}
+            options={{ background: 0x1099bb }}
+          >
+            <Chicken id={0} />
+            <Parrot id={1} />
+            <Chicken id={2} />
+            <Parrot id={3} />
+            <Chicken id={4} />
             <Hero />
 
             <Container x={150} y={150}>
