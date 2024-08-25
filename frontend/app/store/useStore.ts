@@ -43,11 +43,11 @@ const useStore = create<StateType>((set) => ({
   },
 
   enemies: [
-    { x: 0, y: 0, dirX: 1, dirY: 1, speed: 1, size: 50 },
-    { x: 100, y: 100, dirX: 5, dirY: 1, speed: 1, size: 50 },
-    { x: 150, y: 150, dirX: 5, dirY: 1, speed: 1, size: 50 },
-    { x: 40, y: 40, dirX: 5, dirY: 1, speed: 1, size: 50 },
-    { x: 160, y: 160, dirX: 1, dirY: 1, speed: 1, size: 50 },
+    { x: 0, y: 0, dirX: 0.5, dirY: 0.25, speed: 0.25, size: 50 },
+    { x: 100, y: 100, dirX: 0.25, dirY: 1, speed: 1, size: 50 },
+    { x: 150, y: 150, dirX: 0.75, dirY: 0.75, speed: 2, size: 50 },
+    { x: 40, y: 40, dirX: 0.25, dirY: 0.5, speed: 0.5, size: 50 },
+    { x: 160, y: 160, dirX: 1, dirY: 0.25, speed: 1, size: 50 },
   ],
 
   keyUp: false,
@@ -97,17 +97,47 @@ const useStore = create<StateType>((set) => ({
           e.y + enemySize > hero.y
 
         if (c) {
-          e.dirX *= -1
-          e.x = 0
-          e.dirY *= -1
+          // Calcular cuánto se superponen
+          const overlapX = Math.min(
+            hero.x + heroSize - e.x,
+            e.x + enemySize - hero.x,
+          )
+          const overlapY = Math.min(
+            hero.y + heroSize - e.y,
+            e.y + enemySize - hero.y,
+          )
+
+          // Detectar con qué borde se ha producido la colisión
+          const topCollision =
+            hero.y + heroSize - e.y <= overlapY && hero.y < e.y // Colisión con borde superior
+          const bottomCollision =
+            e.y + enemySize - hero.y <= overlapY && hero.y > e.y // Colisión con borde inferior
+          const leftCollision =
+            hero.x + heroSize - e.x <= overlapX && hero.x < e.x // Colisión con borde izquierdo
+          const rightCollision =
+            e.x + enemySize - hero.x <= overlapX && hero.x > e.x // Colisión con borde derecho
+
+          // Ajustar la posición y cambiar la dirección basado en la colisión
+          if (topCollision) {
+            e.dirY *= -1 // Invertir la dirección en Y
+            e.y += overlapY // Mover hacia fuera de la colisión en Y
+          }
+          if (bottomCollision) {
+            e.dirY *= -1
+            e.y -= overlapY // Mover hacia fuera de la colisión en Y
+          }
+          if (leftCollision) {
+            e.dirX *= -1 // Invertir la dirección en X
+            e.x += overlapX // Mover hacia fuera de la colisión en X
+          }
+          if (rightCollision) {
+            e.dirX *= -1
+            e.x -= overlapX // Mover hacia fuera de la colisión en X
+          }
         }
 
         return c
       })
-
-      if (collision) {
-        // Handle collision: invert direction of the enemy
-      }
 
       return { enemies: updatedEnemies }
     }),
