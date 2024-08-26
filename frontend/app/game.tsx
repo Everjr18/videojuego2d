@@ -54,11 +54,11 @@ export default function Game() {
             </Container>
           </Stage>
 
-          <div id="ui" className="pt-2">
+          {/* <div id="ui" className="pt-2">
             <Stage width={160} height={160} options={{ background: 0x1099bb }}>
               <t1.Out />
             </Stage>
-          </div>
+          </div> */}
         </>
       )}
       <DrawSprite />

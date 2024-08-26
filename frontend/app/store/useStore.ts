@@ -28,11 +28,19 @@ type StateType = {
   downReleased: () => void
   leftReleased: () => void
   rightReleased: () => void
+  topCollision: boolean
+  bottomCollision: boolean
+  leftCollision: boolean
+  rightCollision: boolean
 }
 
 const useStore = create<StateType>((set) => ({
   screenWidth: 1024,
   screenHeight: 800,
+  topCollision: false,
+  bottomCollision: false,
+  leftCollision: false,
+  rightCollision: false,
   hero: {
     x: 0,
     y: 0,
@@ -87,7 +95,6 @@ const useStore = create<StateType>((set) => ({
       const hero = state.hero
       const enemySize = enemy.size
       const heroSize = hero.size
-
       const collision = updatedEnemies.some((e) => {
         const c =
           e !== enemy &&
@@ -107,32 +114,57 @@ const useStore = create<StateType>((set) => ({
             e.y + enemySize - hero.y,
           )
 
-          // Detectar con qué borde se ha producido la colisión
-          const topCollision =
-            hero.y + heroSize - e.y <= overlapY && hero.y < e.y // Colisión con borde superior
-          const bottomCollision =
-            e.y + enemySize - hero.y <= overlapY && hero.y > e.y // Colisión con borde inferior
-          const leftCollision =
-            hero.x + heroSize - e.x <= overlapX && hero.x < e.x // Colisión con borde izquierdo
-          const rightCollision =
-            e.x + enemySize - hero.x <= overlapX && hero.x > e.x // Colisión con borde derecho
-
-          // Ajustar la posición y cambiar la dirección basado en la colisión
-          if (topCollision) {
-            e.dirY *= -1 // Invertir la dirección en Y
-            e.y += overlapY // Mover hacia fuera de la colisión en Y
-          }
-          if (bottomCollision) {
-            e.dirY *= -1
-            e.y -= overlapY // Mover hacia fuera de la colisión en Y
-          }
-          if (leftCollision) {
-            e.dirX *= -1 // Invertir la dirección en X
-            e.x += overlapX // Mover hacia fuera de la colisión en X
-          }
-          if (rightCollision) {
-            e.dirX *= -1
-            e.x -= overlapX // Mover hacia fuera de la colisión en X
+          // Detectar la colisión predominante
+          if (overlapX > overlapY) {
+            // Colisión vertical (superior o inferior)
+            if (hero.y < e.y) {
+              // Colisión con borde superior
+              console.log('TOP')
+              set({
+                topCollision: false,
+                bottomCollision: true,
+                leftCollision: false,
+                rightCollision: false,
+              })
+              e.dirY *= -1
+              e.y += overlapY // Mover hacia fuera de la colisión en Y
+            } else {
+              // Colisión con borde inferior
+              console.log('BOTTOM')
+              set({
+                topCollision: true,
+                bottomCollision: false,
+                leftCollision: false,
+                rightCollision: false,
+              })
+              e.dirY *= -1
+              e.y -= overlapY // Mover hacia fuera de la colisión en Y
+            }
+          } else {
+            // Colisión horizontal (izquierda o derecha)
+            if (hero.x < e.x) {
+              console.log('RIGHT')
+              // Colisión con borde izquierdo
+              set({
+                topCollision: false,
+                bottomCollision: false,
+                leftCollision: false,
+                rightCollision: true,
+              })
+              e.dirX *= -1
+              e.x += overlapX // Mover hacia fuera de la colisión en X
+            } else {
+              console.log('LEFT')
+              // Colisión con borde derecho
+              set({
+                topCollision: false,
+                bottomCollision: false,
+                leftCollision: true,
+                rightCollision: false,
+              })
+              e.dirX *= -1
+              e.x -= overlapX // Mover hacia fuera de la colisión en X
+            }
           }
         }
 
