@@ -13,21 +13,8 @@ type StateType = {
   screenWidth: number
   screenHeight: number
   hero: Entity
-  enemies: Entity[]
-  moveHero: (delta: number) => void
+  enemies: Entity[] 
   moveEnemy: (id: number, delta: number) => void
-  keyUp: boolean
-  keyDown: boolean
-  keyLeft: boolean
-  keyRight: boolean
-  upPressed: () => void
-  downPressed: () => void
-  leftPressed: () => void
-  rightPressed: () => void
-  upReleased: () => void
-  downReleased: () => void
-  leftReleased: () => void
-  rightReleased: () => void
   topCollision: boolean
   bottomCollision: boolean
   leftCollision: boolean
@@ -49,7 +36,6 @@ const useStore = create<StateType>((set) => ({
     speed: 5,
     size: 100,
   },
-
   enemies: [
     { x: 0, y: 0, dirX: 0.5, dirY: 0.25, speed: 0.25, size: 50 },
     { x: 100, y: 100, dirX: 0.25, dirY: 1, speed: 1, size: 50 },
@@ -57,12 +43,6 @@ const useStore = create<StateType>((set) => ({
     { x: 40, y: 40, dirX: 0.25, dirY: 0.5, speed: 0.5, size: 50 },
     { x: 160, y: 160, dirX: 1, dirY: 0.25, speed: 1, size: 50 },
   ],
-
-  keyUp: false,
-  keyDown: false,
-  keyLeft: false,
-  keyRight: false,
-
   moveEnemy: (id: number, delta: number) =>
     set((state: StateType) => {
       const enemy = state.enemies[id]
@@ -173,36 +153,7 @@ const useStore = create<StateType>((set) => ({
 
       return { enemies: updatedEnemies }
     }),
-
-  moveHero: (delta: number) =>
-    set((state: StateType) => {
-      let newX = state.hero.x
-      let newY = state.hero.y
-      const velocity = state.hero.speed
-
-      if (state.keyUp) {
-        newY -= velocity * delta
-      }
-      if (state.keyDown) {
-        newY += velocity * delta
-      }
-      if (state.keyLeft) {
-        newX -= velocity * delta
-      }
-      if (state.keyRight) {
-        newX += velocity * delta
-      }
-      return { hero: { ...state.hero, x: newX, y: newY } }
-    }),
-
-  upPressed: () => set({ keyUp: true }),
-  downPressed: () => set({ keyDown: true }),
-  leftPressed: () => set({ keyLeft: true }),
-  rightPressed: () => set({ keyRight: true }),
-  upReleased: () => set({ keyUp: false }),
-  downReleased: () => set({ keyDown: false }),
-  leftReleased: () => set({ keyLeft: false }),
-  rightReleased: () => set({ keyRight: false }),
+  
 }))
 
 export default useStore

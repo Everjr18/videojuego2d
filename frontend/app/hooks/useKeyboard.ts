@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useStore from '../../store/useStore'
+import useStoreKeyboard from '../store/useStoreKeyboard'
 
 const useKeyboard = () => {
   const {
@@ -11,7 +11,11 @@ const useKeyboard = () => {
     downReleased,
     leftReleased,
     rightReleased,
-  } = useStore()
+    keyDown,
+    keyUp,
+    keyLeft,
+    keyRight,
+  } = useStoreKeyboard()
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -45,6 +49,13 @@ const useKeyboard = () => {
     leftReleased,
     rightReleased,
   ])
+
+  return {
+    keyDown,
+    keyUp,
+    keyLeft,
+    keyRight,
+  }
 }
 
 export default useKeyboard
