@@ -2,7 +2,7 @@ import Game from './game'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="m-8 text-center">
       <Game />
     </main>
   )

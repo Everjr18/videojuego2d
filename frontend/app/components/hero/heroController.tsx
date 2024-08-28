@@ -1,23 +1,18 @@
 import React from 'react'
 import Hero from './hero'
-import { useTick } from '@pixi/react'
 import useKeyboard from '@/app/hooks/useKeyboard'
 import useStoreHero from '@/app/store/useStoreHero'
 
 const HeroController = () => {
   const { keyDown, keyUp, keyLeft, keyRight } = useKeyboard()
-  const { move, hero } = useStoreHero()
+  const { hero } = useStoreHero()
 
-  const newDir = { x: 0, y: 0 }
-
-  if (keyDown) newDir.y = 1
-  if (keyUp) newDir.y = -1
-  if (keyLeft) newDir.x = -1
-  if (keyRight) newDir.x = 1
-
-  useTick((delta) => {
-    move(hero.x + newDir.x * delta * 5, hero.y + newDir.y * delta * 5)
-  })
+  if (keyDown) hero.dirY = 1
+  if (keyUp) hero.dirY = -1
+  if (!keyDown && !keyUp) hero.dirY = 0
+  if (keyLeft) hero.dirX = -1
+  if (keyRight) hero.dirX = 1
+  if (!keyLeft && !keyRight) hero.dirX = 0
 
   return <Hero />
 }

@@ -16,8 +16,8 @@ type StateType = {
 
 const useStoreHero = create<StateType>((set) => ({
   hero: {
-    x: 0,
-    y: 0,
+    x: 50,
+    y: 50,
     dirX: 0,
     dirY: 0,
     speed: 5,

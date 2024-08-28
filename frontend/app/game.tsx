@@ -4,28 +4,39 @@ import { Stage, Container, Text } from '@pixi/react'
 import useMounted from './hooks/useMounted'
 import useStore from '@/app/store/useStore'
 import HeroController from '@/app/components/hero/heroController'
-import Chicken from '@/app/components/sprite/chicken'
-import Parrot from '@/app/components/sprite/parrot'
+import Enemy from '@/app/components/enemies/enemy'
+import EnemyController from './components/enemies/enemyController'
+import useStoreEnemies from './store/useStoreEnemies'
 
 export default function Game() {
   const { isMounted } = useMounted()
   const { screenHeight, screenWidth } = useStore()
+  //const { enemies } = useStoreEnemies()
+  console.log('render game')
 
   return (
-    <>
+    <div className="flex justity-center bg-red-500">
       {isMounted && (
-        <>
+        <div className="flex">
+          {/* <div className="px-4 flex flex-col w-40">
+            {enemies.map((enemy, index) => (
+              <div className="flex gap-4" key={index.toString()}>
+                <div>x: {enemy.x.toFixed(1)}</div>
+                <div>y: {enemy.y.toFixed(1)}</div>
+              </div>
+            ))}
+          </div> */}
+          <div className="mt-2 px-4 flex gap-2 w-60">
+            <span>Height: {screenHeight}</span>{' '}
+            <span>Width: {screenWidth}</span>
+          </div>
+
           <Stage
             width={screenWidth}
             height={screenHeight}
             options={{ background: 0x1099bb }}
           >
-
-            <Chicken id={0} />
-            <Parrot id={1} />
-            <Chicken id={2} />
-            <Parrot id={3} />
-            <Chicken id={4} />
+            <EnemyController />
             <HeroController />
 
             <Container x={150} y={150}>
@@ -49,8 +60,8 @@ export default function Game() {
               />
             </Container>
           </Stage>
-        </>
+        </div>
       )}
-    </>
+    </div>
   )
 }
