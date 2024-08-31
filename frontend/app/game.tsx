@@ -17,15 +17,7 @@ export default function Game() {
   return (
     <div className="flex justity-center bg-red-500">
       {isMounted && (
-        <div className="flex">
-          {/* <div className="px-4 flex flex-col w-40">
-            {enemies.map((enemy, index) => (
-              <div className="flex gap-4" key={index.toString()}>
-                <div>x: {enemy.x.toFixed(1)}</div>
-                <div>y: {enemy.y.toFixed(1)}</div>
-              </div>
-            ))}
-          </div> */}
+        <div className="flex">        
           <div className="mt-2 px-4 flex gap-2 w-60">
             <span>Height: {screenHeight}</span>{' '}
             <span>Width: {screenWidth}</span>
