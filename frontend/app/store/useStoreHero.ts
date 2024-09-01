@@ -1,6 +1,4 @@
 import { create } from 'zustand'
-import { sound } from '@pixi/sound'
-import useSound from '@/app/components/sound/useSound'
 
 type Entity = {
   x: number
@@ -13,14 +11,12 @@ type Entity = {
 
 type StateType = {
   hero: Entity
-  playingSound: { estado: 'start' | 'playing' | 'stop' }
   move: (newX: number, newY: number) => void
+  playingSound: { estado: 'start' | 'playing' | 'stop' }
   play: () => void
 }
 
 const useStoreHero = create<StateType>((set) => {
-  // const loaded = useSound()
-
   return {
     hero: {
       x: 50,
@@ -46,7 +42,7 @@ const useStoreHero = create<StateType>((set) => {
       }, 150) // Cambiar a false después de 1 segundo
       setTimeout(() => {
         set((state) => ({ playingSound: { estado: 'stop' } }))
-      }, 300) // Cambiar a false después de 1 segundo
+      }, 1000) // Cambiar a false después de 1 segundo
     },
   }
 })

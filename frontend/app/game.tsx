@@ -17,6 +17,20 @@ export default function Game() {
   const { screenHeight, screenWidth } = useStore()
   console.log('render game')
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/api/test')
+        const data = await res.json()
+        console.log(data)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <div className="flex justity-center bg-blue-300">
       {isMounted && (
@@ -36,7 +50,7 @@ export default function Game() {
 
             <Container x={150} y={150}>
               <Text
-                text={'Hello World'}
+                text={'Fuera de Control'}
                 anchor={0.5}
                 x={400}
                 y={400}

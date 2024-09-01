@@ -23,8 +23,6 @@ const Music = () => {
   const playSound = () => {
     if (typeof document !== 'undefined')
       if (playingSound.estado === 'start' && isPlaying === false) {
-        console.log(playingSound.estado)
-        console.log(isPlaying)
         play()
         sound.play('sonido1')
         setIsPlaying(true)
@@ -35,8 +33,7 @@ const Music = () => {
   useEffect(() => {
     if (isMounted) {
       if (typeof document !== 'undefined') {
-        if (isPlaying === true && playingSound.estado === 'stop')
-          setIsPlaying(false)
+        if (isPlaying === true && playingSound.estado === 'stop') setIsPlaying(false)
         if (isPlaying === false && playingSound.estado === 'start') playSound()
       }
     }
