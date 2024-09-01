@@ -7,7 +7,6 @@ import HeroController from '@/app/components/hero/heroController'
 import Enemy from '@/app/components/enemies/enemy'
 import EnemyController from './components/enemies/enemyController'
 import useStoreEnemies from './store/useStoreEnemies'
-import { sound } from '@pixi/sound'
 import { useEffect } from 'react'
 import dynamic from 'next/dynamic'
 

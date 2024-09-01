@@ -9,7 +9,7 @@ const spritesheet =
   'https://pixijs.io/examples/examples/assets/spritesheet/fighter.json'
 
 const Hero = () => {
-  const { move } = useStoreHero()
+  const { move, play, playingSound } = useStoreHero()
   const x = useStoreHero((state) => state.hero.x)
   const y = useStoreHero((state) => state.hero.y)
   const dirX = useStoreHero((state) => state.hero.dirX)
@@ -20,6 +20,7 @@ const Hero = () => {
   useTick((delta) => {
     if (dirX === 0 && dirY === 0) return
     move(x + dirX * delta * 5, y + dirY * delta * 5)
+    if (playingSound.estado === 'stop') play()
   })
 
   const [frames, setFrames] = useState<PIXI.Texture[]>([])
