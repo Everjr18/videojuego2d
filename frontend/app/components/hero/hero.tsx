@@ -30,7 +30,7 @@ const Hero = () => {
         // Cargar el spritesheet y la imagen
         const spriteSheet = await PIXI.Assets.load('spritesheet.json')
         const { animations, textures } = spriteSheet
-        const frames = animations['fly'] || []
+        const frames = animations.fly || []
         setFrames(frames)
       } catch (error) {
         console.error('Error loading spritesheet:', error)
@@ -51,7 +51,7 @@ const Hero = () => {
           x={x}
           y={y}
           anchor={0.5}
-          scale={{ x: 0.5, y: 0.5 }}
+          scale={{ x: 0.75, y: 0.75 }}
         />
       )}
     </>

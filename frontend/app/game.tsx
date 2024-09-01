@@ -7,22 +7,26 @@ import HeroController from '@/app/components/hero/heroController'
 import Enemy from '@/app/components/enemies/enemy'
 import EnemyController from './components/enemies/enemyController'
 import useStoreEnemies from './store/useStoreEnemies'
+import { sound } from '@pixi/sound'
+import { useEffect } from 'react'
+import dynamic from 'next/dynamic'
+
+const Music = dynamic(() => import('./components/music/music'))
 
 export default function Game() {
   const { isMounted } = useMounted()
   const { screenHeight, screenWidth } = useStore()
-  //const { enemies } = useStoreEnemies()
   console.log('render game')
 
   return (
-    <div className="flex justity-center bg-red-500">
+    <div className="flex justity-center bg-blue-300">
       {isMounted && (
-        <div className="flex">        
-          <div className="mt-2 px-4 flex gap-2 w-60">
+        <div className="flex">
+          <div className="mt-2 px-4 flex gap-2 w-60 text-black">
             <span>Height: {screenHeight}</span>{' '}
             <span>Width: {screenWidth}</span>
           </div>
-
+          <Music />
           <Stage
             width={screenWidth}
             height={screenHeight}

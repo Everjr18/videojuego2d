@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@pixi/react": "^7.1.2",
+    "@pixi/sound": "^5.2.3",
     "@pixi/spritesheet": "^7.4.2",
     "@types/pixi.js": "^5.0.0",
     "next": "14.2.5",
