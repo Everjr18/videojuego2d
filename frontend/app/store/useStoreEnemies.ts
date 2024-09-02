@@ -16,6 +16,7 @@ type Entity = {
 type StateType = {
   enemies: Entity[]
   move: (id: number, delta: number) => void
+  updateSrc: (url: string) => void
 }
 
 const useStoreEnemies = create<StateType>((set, get) => {
@@ -125,6 +126,14 @@ const useStoreEnemies = create<StateType>((set, get) => {
         }
 
         return state
+      }),
+    updateSrc: (url: string) =>
+      set((state: StateType) => {
+        const updatedEnemies = state.enemies.map((enemy) => ({
+          ...enemy,
+          src: url, // Actualizar el src con la URL proporcionada
+        }))
+        return { enemies: updatedEnemies }
       }),
   }
 })

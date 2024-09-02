@@ -1,4 +1,3 @@
-// MercadoPago Webhook//
 import type { NextRequest } from 'next/server'
 import { headers } from 'next/headers'
 
@@ -6,9 +5,6 @@ export async function GET(request: NextRequest) {
   const baseURL = process.env.API_URL
   const apiKey = process.env.API_KEY
   const apiId = process.env.API_ID
-
-  // console.log('Key', apiKey)
-  // console.log('Id', apiId)
 
   const url = `${baseURL}/v1/request`
 
@@ -27,7 +23,7 @@ export async function GET(request: NextRequest) {
       engine_id: "stable-diffusion-v1-6",
       cfg_scale: 7, // Cuánto sigue el modelo el prompt vs. la creatividad
       steps: 50, // Número de pasos de denoising (más pasos = más calidad, pero más lento)
-      sampler: 'k_lms', // Algoritmo de muestreo como "k_euler", "k_lms", etc.
+      sampler: 'DDIM', 
       seed: 42, // Semilla fija para reproducibilidad
       width: 512, // Ancho de la imagen en píxeles
       height: 512, // Alto de la imagen en píxeles
