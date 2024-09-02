@@ -10,15 +10,41 @@ export async function GET(request: NextRequest) {
   // console.log('Key', apiKey)
   // console.log('Id', apiId)
 
-  const url = `${baseURL}/v1/asset`
+  const url = `${baseURL}/v1/request`
+
+  const imageRequest = {
+    data: {
+      prompt:
+        'A futuristic city skyline at sunset with flying cars and tall skyscrapers.',
+    },
+    generator: 'stability-text-to-image',
+    generator_parameters: {
+      resolution: '1024x1024',
+      style: 'cyberpunk',
+      color_scheme: 'vibrant',
+    },
+    options: {
+      description:
+        'Generate an image based on the prompt with a futuristic and vibrant theme.',
+    },
+  }
 
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
     },
-    method: 'GET',
+    body: { ...imageRequest },
+    method: 'POST',
   })
+
+  // const response = await fetch(url, {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${apiKey}`,
+  //   },
+  //   method: 'GET',
+  // })
 
   const result = await response.json()
 

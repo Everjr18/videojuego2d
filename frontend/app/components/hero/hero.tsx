@@ -24,6 +24,7 @@ const Hero = () => {
   })
 
   const [frames, setFrames] = useState<PIXI.Texture[]>([])
+ 
   useEffect(() => {
     // Cargar el spritesheet usando PIXI.Assets.load
     const loadTextures = async () => {
