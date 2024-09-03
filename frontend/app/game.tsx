@@ -118,7 +118,7 @@ export default function Game() {
           </div>
           <div>
             <div className="mt-2 px-4 flex flex-col gap-2">
-              <span>Teclado</span>
+              <span>Keyboard</span>
             </div>
             <Keyboard />
           </div>
