@@ -4,9 +4,6 @@ import { useTick } from '@pixi/react'
 import { useEffect, useState } from 'react'
 import * as PIXI from 'pixi.js'
 
-const spritesheet =
-  'https://pixijs.io/examples/examples/assets/spritesheet/fighter.json'
-
 const Hero = () => {
   const { move, play, playingSound } = useStoreHero()
   const x = useStoreHero((state) => state.hero.x)
@@ -29,7 +26,7 @@ const Hero = () => {
     const loadTextures = async () => {
       try {
         // Cargar el spritesheet y la imagen
-        const spriteSheet = await PIXI.Assets.load('spritesheet.json')
+        const spriteSheet = await PIXI.Assets.load('spritesheet_hero.json')
         const { animations, textures } = spriteSheet
         const frames = animations.fly || []
         setFrames(frames)

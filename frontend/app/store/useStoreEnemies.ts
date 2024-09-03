@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import useStore from './useStore'
 import img1 from '@/public/chicken.png'
 import img2 from '@/public/parrot.png'
+import img3 from '@/public/ship.png'
 
 type Entity = {
   x: number
@@ -33,7 +34,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirY: 0.25,
         speed: 0.25,
         size: 50,
-        src: img2.src,
+        src: img3.src,
       },
       {
         x: 100,
@@ -42,7 +43,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirY: 1,
         speed: 1,
         size: 50,
-        src: img2.src,
+        src: img3.src,
       },
       {
         x: 150,
@@ -51,7 +52,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirY: 0.75,
         speed: 2,
         size: 50,
-        src: img1.src,
+        src: img3.src,
       },
       {
         x: 40,
@@ -60,7 +61,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirY: 0.5,
         speed: 0.5,
         size: 50,
-        src: img1.src,
+        src: img3.src,
       },
       {
         x: 160,
@@ -69,7 +70,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirY: 0.25,
         speed: 1,
         size: 50,
-        src: img1.src,
+        src: img3.src,
       },
     ],
     move: (id: number, delta: number) =>

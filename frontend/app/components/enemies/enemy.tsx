@@ -49,8 +49,8 @@ const Enemy = ({ id }: { id: number }) => {
       image={enemySrc}
       x={enemyX}
       y={enemyY}
-      width={64}
-      height={64}
+      width={32}
+      height={32}
       anchor={{ x: 0.5, y: 0.5 }}
     />
   )
