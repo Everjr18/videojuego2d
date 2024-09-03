@@ -33,7 +33,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirX: 0.5,
         dirY: 0.25,
         speed: 0.25,
-        size: 50,
+        size: 32,
         src: img3.src,
       },
       {
@@ -42,7 +42,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirX: 0.25,
         dirY: 1,
         speed: 1,
-        size: 50,
+        size: 32,
         src: img3.src,
       },
       {
@@ -51,7 +51,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirX: 0.75,
         dirY: 0.75,
         speed: 2,
-        size: 50,
+        size: 32,
         src: img3.src,
       },
       {
@@ -60,7 +60,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirX: 0.25,
         dirY: 0.5,
         speed: 0.5,
-        size: 50,
+        size: 32,
         src: img3.src,
       },
       {
@@ -69,7 +69,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         dirX: 1,
         dirY: 0.25,
         speed: 1,
-        size: 50,
+        size: 32,
         src: img3.src,
       },
     ],

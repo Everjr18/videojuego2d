@@ -16,7 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="backgroundImage">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="navbar bg-primary text-primary-content justify-center">
+          <div className="text-3xl">Fuera de Control</div>
+        </div>
+        {children}
+      </body>
     </html>
   )
 }

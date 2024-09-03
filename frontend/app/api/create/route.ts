@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const apiId = process.env.API_ID
 
   const slug = generateSlug(4, { format: 'title' })
-  console.log(slug)
+  const slug_modified = `${slug}but like a planet in the sky with an creature from another planet or alien in front of the image`
 
   const url = `${baseURL}/v1/request`
 
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     generator_parameters: {
       text_prompts: [
         {
-          text: slug,
+          text: slug_modified,
           weight: 1.0, // Peso de la importancia del prompt
         },
       ],
@@ -60,5 +60,5 @@ export async function GET(request: NextRequest) {
 
   const result = await response.json()
 
-  return Response.json({ status: 200, success: true, result: result })
+  return Response.json({ status: 200, success: true, result: result, slug: slug })
 }

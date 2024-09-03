@@ -119,10 +119,26 @@
                 "w": 182,
                 "h": 123
             }
+        },
+        "sun1.png": {
+            "frame": {
+                "x": 534,
+                "y": 913,
+                "w": 142,
+                "h": 148
+            }
+        },
+        "sun2.png": {
+            "frame": {
+                "x": 421,
+                "y": 1390,
+                "w": 148,
+                "h": 142
+            }
         }
     },
     "animations": {
-        "walk": [
+        "coin": [
             "bronze_1.png",
             "bronze_2.png",
             "bronze_3.png",
@@ -140,6 +156,10 @@
             "wingMan4.png",
             "wingMan3.png",
             "wingMan2.png"
+        ],
+        "sun": [
+            "sun1.png",
+            "sun2.png"
         ]
     },
     "meta": {

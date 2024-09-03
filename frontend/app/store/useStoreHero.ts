@@ -14,6 +14,7 @@ type StateType = {
   move: (newX: number, newY: number) => void
   playingSound: { estado: 'start' | 'playing' | 'stop' }
   play: () => void
+  checkCollisions: (enemies: Entity[]) => boolean
 }
 
 const useStoreHero = create<StateType>((set) => {
@@ -24,7 +25,7 @@ const useStoreHero = create<StateType>((set) => {
       dirX: 0,
       dirY: 0,
       speed: 5,
-      size: 100,
+      size: 25,
     },
     move: (newX: number, newY: number) =>
       set((state) => ({
@@ -43,6 +44,27 @@ const useStoreHero = create<StateType>((set) => {
       setTimeout(() => {
         set((state) => ({ playingSound: { estado: 'stop' } }))
       }, 1000) // Cambiar a false después de 1 segundo
+    },
+    checkCollisions: (enemies: Entity[]) => {
+      const { hero } = useStoreHero.getState()
+      const heroRadius = hero.size / 2
+
+      // Function to calculate the distance between two points
+      const distance = (x1: number, y1: number, x2: number, y2: number) => {
+        return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+      }
+
+      for (const enemy of enemies) {
+        const enemyRadius = enemy.size / 2
+        const dist = distance(hero.x, hero.y, enemy.x, enemy.y)
+
+        // Check if the distance is less than the sum of the radii (collision detection)
+        if (dist < heroRadius + enemyRadius) {
+          return true // Collision detected
+        }
+      }
+
+      return false // No collision detected
     },
   }
 })

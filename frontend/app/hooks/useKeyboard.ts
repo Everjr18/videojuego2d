@@ -32,6 +32,10 @@ const useKeyboard = () => {
       if (e.key === 'd') rightReleased()
     }
 
+    // Flaky Wooden Thankful Lion
+    // 26403
+
+
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keyup', handleKeyUp)
 
