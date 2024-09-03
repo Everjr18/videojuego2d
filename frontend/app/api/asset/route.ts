@@ -23,12 +23,12 @@ export async function GET(request: NextRequest) {
       engine_id: "stable-diffusion-v1-6",
       cfg_scale: 7, // Cuánto sigue el modelo el prompt vs. la creatividad
       steps: 50, // Número de pasos de denoising (más pasos = más calidad, pero más lento)
-      sampler: 'k_lms', // Algoritmo de muestreo como "k_euler", "k_lms", etc.
+      sampler: 'DDIM', // Algoritmo de muestreo como "k_euler", "k_lms", etc.
       seed: 42, // Semilla fija para reproducibilidad
       width: 512, // Ancho de la imagen en píxeles
       height: 512, // Alto de la imagen en píxeles
       samples: 1, // Número de imágenes a generar
-      style_preset: 'cyberpunk', // Preset de estilo si se soporta en la API
+      style_preset: 'digital-art', // Preset de estilo si se soporta en la API
       upscale: false, // Si deseas escalar la imagen resultante (opcional)
     },
     options: {

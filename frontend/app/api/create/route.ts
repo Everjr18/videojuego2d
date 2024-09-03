@@ -1,10 +1,14 @@
 import type { NextRequest } from 'next/server'
 import { headers } from 'next/headers'
+import { generateSlug } from 'random-word-slugs'
 
 export async function GET(request: NextRequest) {
   const baseURL = process.env.API_URL
   const apiKey = process.env.API_KEY
   const apiId = process.env.API_ID
+
+  const slug = generateSlug(4, { format: 'title' })
+  console.log(slug)
 
   const url = `${baseURL}/v1/request`
 
@@ -16,19 +20,19 @@ export async function GET(request: NextRequest) {
     generator_parameters: {
       text_prompts: [
         {
-          text: 'A futuristic car with vibrant neon lights, flying cars, and a cyberpunk theme',
+          text: slug,
           weight: 1.0, // Peso de la importancia del prompt
         },
       ],
-      engine_id: "stable-diffusion-v1-6",
+      engine_id: 'stable-diffusion-v1-6',
       cfg_scale: 7, // Cuánto sigue el modelo el prompt vs. la creatividad
       steps: 50, // Número de pasos de denoising (más pasos = más calidad, pero más lento)
-      sampler: 'DDIM', 
+      sampler: 'DDIM',
       seed: 42, // Semilla fija para reproducibilidad
       width: 512, // Ancho de la imagen en píxeles
       height: 512, // Alto de la imagen en píxeles
       samples: 1, // Número de imágenes a generar
-      style_preset: 'cyberpunk', // Preset de estilo si se soporta en la API
+      style_preset: 'digital-art', // Preset de estilo si se soporta en la API
       upscale: false, // Si deseas escalar la imagen resultante (opcional)
     },
     options: {

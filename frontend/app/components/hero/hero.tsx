@@ -1,6 +1,5 @@
-import useStoreHero from '../../store/useStoreHero'
-import { Sprite, useApp, AnimatedSprite } from '@pixi/react'
-import img from '@/public/crocodile.png'
+import useStoreHero from '@/app/store/useStoreHero'
+import { AnimatedSprite } from '@pixi/react'
 import { useTick } from '@pixi/react'
 import { useEffect, useState } from 'react'
 import * as PIXI from 'pixi.js'
@@ -19,12 +18,12 @@ const Hero = () => {
 
   useTick((delta) => {
     if (dirX === 0 && dirY === 0) return
-    move(x + dirX * delta * 5, y + dirY * delta * 5)
+    move(x + dirX * delta * 1, y + dirY * delta * 1)
     if (playingSound.estado === 'stop') play()
   })
 
   const [frames, setFrames] = useState<PIXI.Texture[]>([])
- 
+
   useEffect(() => {
     // Cargar el spritesheet usando PIXI.Assets.load
     const loadTextures = async () => {
@@ -48,12 +47,12 @@ const Hero = () => {
         <AnimatedSprite
           textures={frames}
           isPlaying={true}
-          animationSpeed={0.3}
+          animationSpeed={0.5}
           loop={true}
           x={x}
           y={y}
           anchor={0.5}
-          scale={{ x: 0.75, y: 0.75 }}
+          scale={{ x: 0.25, y: 0.25 }}
         />
       )}
     </>

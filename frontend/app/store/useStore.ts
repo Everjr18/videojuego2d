@@ -6,8 +6,8 @@ type StateType = {
 }
 
 const useStore = create<StateType>((set) => ({
-  screenWidth: 800,
-  screenHeight: 600,
+  screenWidth: 640,
+  screenHeight: 480,
 }))
 
 export default useStore

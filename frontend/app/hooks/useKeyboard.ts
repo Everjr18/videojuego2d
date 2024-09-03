@@ -19,17 +19,17 @@ const useKeyboard = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowUp') upPressed()
-      if (e.key === 'ArrowDown') downPressed()
-      if (e.key === 'ArrowLeft') leftPressed()
-      if (e.key === 'ArrowRight') rightPressed()
+      if (e.key === 'w') upPressed()
+      if (e.key === 's') downPressed()
+      if (e.key === 'a') leftPressed()
+      if (e.key === 'd') rightPressed()
     }
 
     const handleKeyUp = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowUp') upReleased()
-      if (e.key === 'ArrowDown') downReleased()
-      if (e.key === 'ArrowLeft') leftReleased()
-      if (e.key === 'ArrowRight') rightReleased()
+      if (e.key === 'w') upReleased()
+      if (e.key === 's') downReleased()
+      if (e.key === 'a') leftReleased()
+      if (e.key === 'd') rightReleased()
     }
 
     window.addEventListener('keydown', handleKeyDown)

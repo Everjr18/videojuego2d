@@ -9,6 +9,8 @@ import EnemyController from './components/enemies/enemyController'
 import useStoreEnemies from './store/useStoreEnemies'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
+import HumanController from './components/humans/humanController'
+import Keyboard from './components/keyboard/keyboard'
 
 const Music = dynamic(() => import('./components/music/music'))
 
@@ -19,13 +21,24 @@ export default function Game() {
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined)
   console.log('render game')
 
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/image/25386')
-        const data = await res.json()
-        setImageUrl(data.result.assets[0].url)
-        updateSrc(data.result.assets[0].url)
+        const res1 = await fetch('http://localhost:3000/api/create')
+        const data1 = await res1.json()
+        console.log(data1)
+        const id = data1.result
+        console.log(id)
+        await sleep(5000)
+        const res2 = await fetch(`http://localhost:3000/api/image/${id}`)
+        const data2 = await res2.json()
+        console.log(data2)
+        setImageUrl(data2.result.assets[0].url)
+        updateSrc(data2.result.assets[0].url)
       } catch (error) {
         console.error('Error fetching data:', error)
       }
@@ -35,29 +48,28 @@ export default function Game() {
   }, [])
 
   return (
-    <div className="flex justity-center bg-blue-300">
+    <div className="flex justity-center text-primary text-lg">
       {isMounted && (
-        <div className="flex justify-center w-full my-20">
-          <div className="mt-2 px-4 w-60 flex flex-col text-2xl gap-2 text-black">
-            <span>Level 1</span>
-            <span>Country: Argentina </span>
+        <div className="flex flex-wrap justify-center w-full my-20">
+          <div className="mt-2 px-4 w-40 flex flex-col gap-2">
+            <span>Score: 1000 </span>
+            <span>Lives: 3</span>
             <div>
               {imageUrl && (
-                <img src={imageUrl} width={100} height={100} alt="IA image" />
+                <img src={imageUrl} width={200} height={200} alt="IA image" />
               )}
             </div>
           </div>
-          <div>
-            <div className="text-black text-2xl mb-4">
-              COVID-19: Fuera de Control{' '}
-            </div>
+          <div>            
             <Music />
+            <div className="shadow-2xl bg-primary border border-primary rounded-3xl p-4">
             <Stage
               width={screenWidth}
               height={screenHeight}
-              options={{ background: 0x1099bb }}
+              options={{ background: 0x000000 }}
             >
               <EnemyController />
+              <HumanController />
               <HeroController />
 
               <Container x={150} y={150}>
@@ -81,11 +93,14 @@ export default function Game() {
                 />
               </Container>
             </Stage>
+            </div>
           </div>
-          <div className="mt-2 px-4 flex flex-col gap-2 text-black text-2xl">
-            <span>Score: {screenHeight}</span> <span>Cured: {screenWidth}</span>
-            <span>Infected: {screenWidth}</span>
-            <span>Deads: {screenWidth}</span>
+          <div>
+            <div className="mt-2 px-4 flex flex-col gap-2">
+              
+              <span>Teclado</span>              
+            </div>
+            <Keyboard />
           </div>
         </div>
       )}
