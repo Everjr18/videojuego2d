@@ -15,6 +15,7 @@ type StateType = {
   playingSound: { estado: 'start' | 'playing' | 'stop' }
   play: () => void
   checkCollisions: (enemies: Entity[]) => boolean
+  restartHero: () => void  
 }
 
 const useStoreHero = create<StateType>((set) => {
@@ -43,7 +44,7 @@ const useStoreHero = create<StateType>((set) => {
       }, 150) // Cambiar a false después de 1 segundo
       setTimeout(() => {
         set((state) => ({ playingSound: { estado: 'stop' } }))
-      }, 1000) // Cambiar a false después de 1 segundo
+      }, 500) // Cambiar a false después de 1 segundo
     },
     checkCollisions: (enemies: Entity[]) => {
       const { hero } = useStoreHero.getState()
@@ -66,6 +67,17 @@ const useStoreHero = create<StateType>((set) => {
 
       return false // No collision detected
     },
+    restartHero: () =>
+      set((state) => ({
+        hero: {
+          x: 320,
+          y: 200,
+          dirX: 0,
+          dirY: 0,
+          speed: 5,
+          size: 25,
+        },
+      })),
   }
 })
 

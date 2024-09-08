@@ -1,26 +1,40 @@
-import useStore from '@/app/store/useStoreHumans'
+import useStoreHumans from '@/app/store/useStoreHumans'
 import { AnimatedSprite, Sprite, useTick } from '@pixi/react'
 import { useEffect, useState } from 'react'
 import * as PIXI from 'pixi.js'
+import useStore from '@/app/store/useStore'
 
 const Human = ({ id }: { id: number }) => {
-  const size = useStore(
+  const { gameStatus } = useStore()
+  const size = useStoreHumans(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     (state: { humans: { size: any }[] }) => state.humans[id].size,
   )
-  const x = useStore((state: { humans: { x: any }[] }) => state.humans[id].x)
-  const y = useStore((state: { humans: { y: any }[] }) => state.humans[id].y)
-  const dirX = useStore((state: { humans: { dirX: any }[] }) => state.humans[id].dirX)
-  const src = useStore(
+  const x = useStoreHumans(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    (state: { humans: { x: any }[] }) => state.humans[id].x,
+  )
+  const y = useStoreHumans(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    (state: { humans: { y: any }[] }) => state.humans[id].y,
+  )
+  const dirX = useStoreHumans(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    (state: { humans: { dirX: any }[] }) => state.humans[id].dirX,
+  )
+  const src = useStoreHumans(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     (state: { humans: { src: any }[] }) => state.humans[id].src,
   )
-  const move = useStore((state: { move: any }) => state.move)
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const move = useStoreHumans((state: { move: any }) => state.move)
 
   const [frames, setFrames] = useState<PIXI.Texture[]>([])
 
   console.log('render human')
 
   useTick((delta) => {
-    move(id, delta)
+    if (gameStatus === 'playing') move(id, delta)
   })
 
   useEffect(() => {
@@ -46,12 +60,12 @@ const Human = ({ id }: { id: number }) => {
         <AnimatedSprite
           textures={frames}
           isPlaying={true}
-          animationSpeed={0.2}
+          animationSpeed={gameStatus === 'playing' ? 0.2 : 0.0}
           loop={true}
           x={x}
           y={y}
           anchor={0.5}
-          scale={{ x: dirX > 0?0.25:-0.25, y: 0.25 }}
+          scale={{ x: dirX > 0 ? 0.25 : -0.25, y: 0.25 }}
         />
       )}
     </>

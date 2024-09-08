@@ -18,6 +18,7 @@ type StateType = {
   enemies: Entity[]
   move: (id: number, delta: number) => void
   updateSrc: (url: string) => void
+  restartGameEnemies: () => void
 }
 
 const useStoreEnemies = create<StateType>((set, get) => {
@@ -32,7 +33,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         y: 0,
         dirX: 0.5,
         dirY: 0.25,
-        speed: 0.25,
+        speed: 5.55,
         size: 32,
         src: img3.src,
       },
@@ -41,7 +42,7 @@ const useStoreEnemies = create<StateType>((set, get) => {
         y: 100,
         dirX: 0.25,
         dirY: 1,
-        speed: 1,
+        speed: 2,
         size: 32,
         src: img3.src,
       },
@@ -136,6 +137,57 @@ const useStoreEnemies = create<StateType>((set, get) => {
         }))
         return { enemies: updatedEnemies }
       }),
+    restartGameEnemies: () => {
+      set({
+        enemies: [
+          {
+            x: 0,
+            y: 0,
+            dirX: 0.5,
+            dirY: 0.25,
+            speed: 5.55,
+            size: 32,
+            src: img3.src,
+          },
+          {
+            x: 100,
+            y: 100,
+            dirX: 0.25,
+            dirY: 1,
+            speed: 2,
+            size: 32,
+            src: img3.src,
+          },
+          {
+            x: 150,
+            y: 150,
+            dirX: 0.75,
+            dirY: 0.75,
+            speed: 2,
+            size: 32,
+            src: img3.src,
+          },
+          {
+            x: 40,
+            y: 40,
+            dirX: 0.25,
+            dirY: 0.5,
+            speed: 0.5,
+            size: 32,
+            src: img3.src,
+          },
+          {
+            x: 160,
+            y: 160,
+            dirX: 1,
+            dirY: 0.25,
+            speed: 1,
+            size: 32,
+            src: img3.src,
+          },
+        ],
+      }) // Reiniciar el estado del juego
+    },
   }
 })
 

@@ -7,6 +7,7 @@ const HumanController = () => {
 
   return (
     <>
+      {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
       {humans.map((e: any, index: number) => (
         <Human key={index.toString()} id={index} />
       ))}

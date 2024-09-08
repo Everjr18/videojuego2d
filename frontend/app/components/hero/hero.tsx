@@ -5,8 +5,17 @@ import { useEffect, useState } from 'react'
 import * as PIXI from 'pixi.js'
 import useStoreEnemies from '@/app/store/useStoreEnemies'
 import useStoreHumans from '@/app/store/useStoreHumans'
+import useStore from '@/app/store/useStore'
 
 const Hero = () => {
+  const {
+    gameStatus,
+    heroHealth,
+    addScore,
+    heroGetDamage,
+    heroLifes,
+    heroScore,
+  } = useStore()
   const { move, play, playingSound, checkCollisions } = useStoreHero()
   const x = useStoreHero((state) => state.hero.x)
   const y = useStoreHero((state) => state.hero.y)
@@ -21,13 +30,21 @@ const Hero = () => {
   const [collisionWithHuman, setCollisionWithHuman] = useState(false)
 
   useTick((delta) => {
-    // if (dirX === 0 && dirY === 0) return
-    move(x + dirX * delta * 1, y + dirY * delta * 1)
-    if (playingSound.estado === 'stop') play()
+    if (gameStatus === 'playing')
+      move(x + dirX * delta * 1, y + dirY * delta * 1)
     const result1 = checkCollisions(enemies)
     setCollisionWithEnemy(result1)
+    if (result1 && gameStatus !== 'gameOver') heroGetDamage()
     const result2 = checkCollisions(humans)
+    if (result2 && gameStatus !== 'gameOver') addScore()
     setCollisionWithHuman(result2)
+    // if (dirX === 0 && dirY === 0) return
+    if (
+      gameStatus === 'playing' &&
+      playingSound.estado === 'stop' &&
+      (result1 || result2)
+    )
+      play()
   })
 
   useEffect(() => {
@@ -70,7 +87,7 @@ const Hero = () => {
         <AnimatedSprite
           textures={sunFrames}
           isPlaying={true}
-          animationSpeed={0.1}
+          animationSpeed={gameStatus === 'playing' ? 0.1 : 0.0}
           loop={true}
           x={x}
           y={y}
@@ -87,7 +104,7 @@ const Hero = () => {
           x={x}
           y={y}
           anchor={0.5}
-          scale={{ x: 0.50, y: 0.50 }}
+          scale={{ x: 0.5, y: 0.5 }}
         />
       )}
     </>
